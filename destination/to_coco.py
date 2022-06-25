@@ -65,9 +65,9 @@ class ToCOCO(ANNO):
             if isinstance(data, dt.Frame):
                 logger.info("Loading data from datatable Frame")
                 data = data.to_pandas()
-        super().__init__(load_path=load_path, save_path=save_path, img_dir=None)
-        self.data = data
+        super().__init__(img_dir=None)
         self.save_path = save_path
+        self.data = data
         self.img_dir = img_dir
         self.soft_link = soft_link
         self.train_ratio = train_ratio
@@ -111,14 +111,14 @@ class ToCOCO(ANNO):
             "version": 1,
         }
 
-    def _license_section(self, urls="www.inuyasha.xyz"):
+    def _license_section(self, urls="2-9.top"):
         return [{"usl": urls, "id": 1}]
 
     def _images_section(
         self,
         data,
         license=1,
-        coco_url="www.inuyasha.xyz",
+        coco_url="2-9.top",
         date_captured="",
         width=4000,
         height=3000,

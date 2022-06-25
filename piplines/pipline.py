@@ -22,7 +22,6 @@ class Pipline:
     def __init__(self, args):
         self.args = args
         self.middle = self.src_loader()
-        print('Loading middle data...')
 
     def src_loader(self):
         if self.args.stype == "labelimg":
@@ -40,5 +39,5 @@ class Pipline:
             tococo = ToCOCO(data=self.middle)
             tococo.generate_json(self.middle.to_pandas(), "dst")
         elif self.args.mode == "dataset":
-            tococo = ToCOCO(data=self.middle, save_path=self.args.dst)
+            tococo = ToCOCO(data=self.middle, save_path=self.args.dst, img_dir=self.args.img)
             tococo.generate_dataset()

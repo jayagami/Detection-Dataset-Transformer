@@ -33,7 +33,6 @@ def parse_args():
 def main():
     args = parse_args()
     p = Pipline(args)
-    print(p.middle)
     p.transform()
     #%%
 if __name__ == "__main__":

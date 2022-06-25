@@ -107,17 +107,6 @@ class ANNO:
             print("loading from {}".format(load_path))
             self.load(load_path)
 
-        if save_path is None:
-            return None
-        elif os.path.isdir(save_path):
-            save_path = os.path.join(save_path, "{}".format(current_time) + ".csv")
-        elif save_path.endswith("/"):
-            save_path = os.path.join(save_path, current_time + ".csv")
-        elif save_path.endswith(".csv"):
-            pass
-        if save_path:
-            self.save_path = save_path
-
     @staticmethod
     def path_dict(dir_path: str, ext: str):
         """
