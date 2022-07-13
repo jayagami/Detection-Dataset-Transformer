@@ -34,6 +34,7 @@ import json
 import argparse
 import shutil
 from tqdm import tqdm
+from PIL import Image
 
 # create formatter
 # logging.getLogger().setLevel(logging.DEBUG)
@@ -59,7 +60,7 @@ class ToCOCO(ANNO):
         img_dir=None,
         soft_link=True,
         train_ratio=0.8,
-        read_img_size=True,
+        read_img_size=False,
     ):
         if data is not None:
             load_path = None
@@ -87,7 +88,6 @@ class ToCOCO(ANNO):
         self.categories_section = []
         self.info_section = []
         self.multi_process = multi_process
-        self.categories_section = None
 
     @classmethod
     def xyminmax2xywh(cls, yolo_box, convert_int=True):
@@ -115,6 +115,11 @@ class ToCOCO(ANNO):
 
     def _license_section(self, urls="2-9.top"):
         return [{"usl": urls, "id": 1}]
+        
+    def get_img_size(self, file_name):
+        img = Image.open(file_name)
+        width, height = img.size
+        return width, height
 
     def _images_section(
         self,
@@ -131,7 +136,7 @@ class ToCOCO(ANNO):
         i = 0
         for file_name in self.img_name_array:
             if self.read_img_size:
-                width, height = self.img_size()
+                width, height = self.get_img_size(file_name)
             img_info = {
                 "license": license,
                 "file_name": file_name,
@@ -215,7 +220,8 @@ class ToCOCO(ANNO):
         else:
             # now the annotation job
             images_section = self._images_section(data)
-            self.categories_section = self._categories_section(data) is self.categories_section is None
+            
+            self.categories_section = self._categories_section(data) if len(self.categories_section) == 0 else self.categories_section
             annotations_section = self._annotations_section(data)
         type_section = self._type_section()
         license_section = self._license_section()
