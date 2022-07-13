@@ -39,5 +39,5 @@ class Pipline:
             tococo = ToCOCO(data=self.middle)
             tococo.generate_json(self.middle.to_pandas(), "dst")
         elif self.args.mode == "dataset":
-            tococo = ToCOCO(data=self.middle, save_path=self.args.dst, img_dir=self.args.img)
+            tococo = ToCOCO(data=self.middle, save_path=self.args.dst, img_dir=self.args.img, read_img_size=self.read_img_size)
             tococo.generate_dataset()
