@@ -59,6 +59,7 @@ class ToCOCO(ANNO):
         img_dir=None,
         soft_link=True,
         train_ratio=0.8,
+        read_img_size=True,
     ):
         if data is not None:
             load_path = None
@@ -80,12 +81,13 @@ class ToCOCO(ANNO):
             "type": [],
         }
         self.img_name_array = np.array([])
-        self.read_img_size = False
+        self.read_img_size = read_img_size
         self.images_section = []
         self.annotations_section = []
         self.categories_section = []
         self.info_section = []
         self.multi_process = multi_process
+        self.categories_section = None
 
     @classmethod
     def xyminmax2xywh(cls, yolo_box, convert_int=True):
@@ -213,7 +215,7 @@ class ToCOCO(ANNO):
         else:
             # now the annotation job
             images_section = self._images_section(data)
-            categories_section = self._categories_section(data)
+            self.categories_section = self._categories_section(data) is self.categories_section is None
             annotations_section = self._annotations_section(data)
         type_section = self._type_section()
         license_section = self._license_section()
