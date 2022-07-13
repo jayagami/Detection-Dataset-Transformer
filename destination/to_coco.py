@@ -225,7 +225,7 @@ class ToCOCO(ANNO):
         coco_data["licenses"] = license_section
         coco_data["images"] = images_section
         coco_data["annotations"] = annotations_section
-        coco_data["categories"] = categories_section
+        coco_data["categories"] = self.categories_section
         coco_data["type"] = type_section
         logger.info("All jobs done")
         if not json_path.endswith(".json"):

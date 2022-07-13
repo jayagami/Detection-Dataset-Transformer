@@ -27,6 +27,7 @@ def parse_args():
     parser.add_argument("-mode", type=str, help="transform mode")
     parser.add_argument("-dst", type=str, help="dst path")
     parser.add_argument("-save_middle", type=str, help="middle data save path")
+    parser.add_argument("-read_img_size", type=bool, help="read image size", default=False)
     args = parser.parse_args()
     return args
 
